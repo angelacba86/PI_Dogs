@@ -1,0 +1,13 @@
+.dogsContainer{
+    width: 100%;
+    display:flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+    gap:1em;
+    margin: 2%;
+    padding: 1% 2%;
+    justify-content: center;
+    background-color: azure;
+
+
+}

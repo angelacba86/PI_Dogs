@@ -1,0 +1,6 @@
+.searchContainer{
+    display: flex;
+    flex-direction: row;
+    max-height: 80%;
+    gap:0.25em;
+}

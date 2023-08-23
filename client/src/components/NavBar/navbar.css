@@ -1,0 +1,14 @@
+.navBarContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    max-height: 30px;
+    gap:1em;
+    margin: 0 2%;
+    padding: 2%;
+    background-color: aquamarine;
+    justify-content: center
+
+
+}

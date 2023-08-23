@@ -1,0 +1,16 @@
+
+
+.dogCard{
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    border:1px solid black;
+    gap:1em;
+    width: 300px;
+    padding: 10px;
+}
+
+.imagen {
+    max-width: 100%;
+    height: auto;
+  }
