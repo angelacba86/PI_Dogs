@@ -18,6 +18,7 @@ const getDogsCtrl= async()=>{
   console.log('por recorrer el apiDog para pushear los dogs')
     apiDogs?.forEach((dog)=>{
         dogs.push({
+            id:dog.id,
             name:dog.name,
             image:dog.image?.url,
             weight:dog.weight?.metric,
@@ -28,7 +29,7 @@ const getDogsCtrl= async()=>{
     });
 
     const createdDogs= await Dog.findAll({
-        attributes:['name','image','weight','height','life_span'],
+        attributes:['id','name','image','weight','height','life_span'],
         includes:{
             model:Temperament,
             attributes:['name']
@@ -45,6 +46,7 @@ const getNameCtrl=async(name)=>{
     const apiDogName=gettingApiDogName.data; 
 
         apiDogName.map((dog)=>{ apiDogFinal.push({
+            id:dog.id,
             name:dog.name,
             image:`${URL_IMAGE}${dog.reference_image_id}.jpg`,
             weight:dog.weight?.metric,
@@ -54,7 +56,7 @@ const getNameCtrl=async(name)=>{
         })
    
     const dbDog= await Dog.findAll({
-        attributes:['name','image','weight','height','life_span'],
+        attributes:['id','name','image','weight','height','life_span'],
         includes:{
             model:Temperament,
             attributes:['name']},
