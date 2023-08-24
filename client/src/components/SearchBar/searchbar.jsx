@@ -1,11 +1,11 @@
 import '../SearchBar/searchbar.css';
 
-const SearchBar=( )=>{
+const SearchBar=({handleChange, handleSubmit, name} )=>{
 
     return(
         <div className='searchContainer'>
-            <input type='search'></input>
-            <button onClick={()=>alert('Se precionó boton')}>Buscar</button>
+            <input type='search' value={name} onChange={handleChange} placeholder='Busca aquí'></input>
+            <button onClick={()=>handleSubmit(name)}>Buscar</button>
         </div>
     )
 }

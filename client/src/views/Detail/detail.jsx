@@ -1,10 +1,31 @@
 import '../Detail/detail.css'
+import { useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { getDetail } from '../../redux/actions';
+import { useEffect } from 'react';
 
 const Detail=()=>{
-    return(
+
+    const {id}= useParams();
+    const dispatch=useDispatch();
+    const detailDog= useSelector(state=>state.detailDog);
+
+    useEffect(()=>{
+        dispatch(getDetail(id))
+    },[dispatch,id]);
+
+    const dogDetails = detailDog[0];
+
+      return (
         <div>
-            <p>Este es el Detail</p>
+            <img src={dogDetails&&dogDetails.image} alt={dogDetails&&dogDetails.name}/>
+            <h3>{dogDetails&&dogDetails.name}</h3>
+            <p>Temperament: {dogDetails&&dogDetails.temperament}</p>
+            <p>Height: {dogDetails&&dogDetails.height}</p>
+            <p>Weight: {dogDetails&&dogDetails.weight}</p>
+            <p>Span life: {dogDetails&&dogDetails.span_life}</p>
+
         </div>
-    )
+      )
 }
 export default Detail

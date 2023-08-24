@@ -1,4 +1,4 @@
-import { ALL_DOGS, GET_BY_NAME } from "./action-type";
+import { ALL_DOGS, GET_BY_NAME, GET_DETAIL, PAGE_CLEANER } from "./action-type";
 import axios from 'axios';
 
 export const allDogs = ()=>{
@@ -23,4 +23,21 @@ export const getByName = (name) => {
             })
         })
     })
+}
+export const getDetail = (id) => {
+    const endpoint=`http://localhost:3001/dogs/${id}`
+    return (dispatch =>{
+        axios.get(endpoint).then(({data})=>{
+            return dispatch ({
+                type:GET_DETAIL,
+                payload:data})
+        })
+    })
+}
+
+export const pageCleaner=()=>{
+    return ({
+        type:PAGE_CLEANER,
+        payload:null}
+    )
 }
