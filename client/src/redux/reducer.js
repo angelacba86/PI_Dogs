@@ -1,4 +1,4 @@
-import { ALL_DOGS, GET_BY_NAME, GET_DETAIL } from "./action-type";
+import { ALL_DOGS, GET_BY_NAME, GET_DETAIL, PAGE_CLEANER } from "./action-type";
 
 let initialState= {getAllDogs:[], getAllDogsCopy:[], detailDog:[]};
 
@@ -9,6 +9,8 @@ const reducer= (state=initialState, action)=>{
         case GET_BY_NAME:
             return {...state,getAllDogs:action.payload}
         case GET_DETAIL:
+            return {...state,detailDog:action.payload}
+        case PAGE_CLEANER:
             return {...state,detailDog:action.payload}
         default: 
            return { ...state}

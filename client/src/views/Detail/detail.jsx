@@ -1,7 +1,7 @@
 import '../Detail/detail.css'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { getDetail } from '../../redux/actions';
+import { getDetail, pageCleaner } from '../../redux/actions';
 import { useEffect } from 'react';
 
 const Detail=()=>{
@@ -12,10 +12,12 @@ const Detail=()=>{
 
     useEffect(()=>{
         dispatch(getDetail(id))
+        return () => {
+            dispatch(pageCleaner())}
     },[dispatch,id]);
 
-    const dogDetails = detailDog[0];
-
+    const dogDetails=detailDog&&detailDog[0];
+    
       return (
         <div>
             <img src={dogDetails&&dogDetails.image} alt={dogDetails&&dogDetails.name}/>
