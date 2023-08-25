@@ -7,7 +7,7 @@ import Landing from './views/Landing/landing';
 import Detail from './views/Detail/detail';
 import Form from './views/Form/form';
 import NavBar from './components/NavBar/navbar';
-import { allDogs,getByName } from '../src/redux/actions'
+import { allDogs,getByName, getTemperaments } from '../src/redux/actions'
 import {handleChange} from '../src/utils/utils'
 
 
@@ -34,10 +34,15 @@ function App() {
   const handleName=handleChange(setName)
 
 //----TemperamentFilter-----//
+const tempList=useSelector(state=>state.tempList)
+useEffect(()=>{
+  dispatch(getTemperaments())
+})
+
 
   return (
     <div className="App">
-       {pathname!=='/' && <NavBar handleChange={handleName} handleSubmit={handleSubmit} name={name} />}
+       {pathname!=='/' && <NavBar handleChange={handleName} handleSubmit={handleSubmit} name={name} tempList={tempList} />}
       <Routes>
         <Route path='/' element={<Landing/>}/>
         <Route exact path='/home' element={<Home getAllDogs={getAllDogs}/>}/>

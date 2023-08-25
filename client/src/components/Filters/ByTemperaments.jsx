@@ -1,9 +1,9 @@
 
-const ByTemperaments = () => {
+const ByTemperaments = ({tempList}) => {
 
   return(
     <div>
-      {/* <select id="filterByTemperaments" onChange={handleTemp} onClick={tempFilter}>
+      <select id="filterByTemperaments" >
         <option value="defaultValue">
           by Temperaments
         </option>
@@ -12,7 +12,7 @@ const ByTemperaments = () => {
             {temp.name}
           </option>
         ))}
-      </select> */}
+      </select>
     </div>
   )
 }
