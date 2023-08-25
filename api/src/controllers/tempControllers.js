@@ -23,7 +23,6 @@ const getTempCtrl= async ()=>{
 
     const dbTemperament= await Temperament.bulkCreate(
         allDogsTemp.map((temp)=>({name:temp})),
-        {ignoreDuplicates:false}
     ) ;
 
     return dbTemperament
