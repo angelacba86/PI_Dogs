@@ -13,17 +13,19 @@ export const allDogs = ()=>{
     };
 };
 
-export const getByName = (name) => {
-    const endpoint=`http://localhost:3001/dogs?name=${name}`
-    return (dispatch =>{
-        axios.get(endpoint).then(({data})=>{
-            return dispatch ({
-                type:GET_BY_NAME,
-                payload:data
-            })
-        })
-    })
-}
+export const getByName = (name) => async dispatch => {
+  try {
+    const endpoint = await axios.get(`http://localhost:3001/dogs?name=${name}`);
+    const response = endpoint.data;
+        dispatch({
+            type: GET_BY_NAME,
+            payload: response
+          });
+
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
+};
 export const getDetail = (id) => {
     const endpoint=`http://localhost:3001/dogs/${id}`
     return (dispatch =>{

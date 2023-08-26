@@ -11,15 +11,20 @@ let initialState= {
     getAllDogs:[],
     getAllDogsCopy:[],
     filteredDogs:[],
-    tempList:[]
+    tempList:[],
+    noInfo:""
 };
 
 const reducer= (state=initialState, action)=>{
     switch(action.type){
         case ALL_DOGS:
-            return {...state,getAllDogs:action.payload, getAllDogsCopy:action.payload};
+            return {...state,getAllDogs:action.payload, getAllDogsCopy:action.payload}
         case GET_BY_NAME:
-            return {...state,getAllDogs:action.payload}
+            console.log("GET_BY_NAME action received:", action.payload);
+            return {...state,
+                getAllDogs: Array.isArray(action.payload) ? action.payload : [],
+                noInfo:action.payload.length === 0 ? "No dogs found." : "",
+            }
         case GET_DETAIL:
             return {...state,detailDog:action.payload}
         case PAGE_CLEANER:
@@ -28,7 +33,7 @@ const reducer= (state=initialState, action)=>{
             return{...state,tempList:action.payload}
         case FILTER_BY_TEMPERAMENTS:
             const targetValue = action.payload;
-            const filteredDogs = state.getAllDogsCopy.filter(dog =>
+            const filteredDogs = state.getAllDogs?.filter(dog =>
               dog.temperament?.split(', ').some(temp => temp.toLowerCase() === targetValue.toLowerCase())
               );
             return { ...state, filteredDogs };

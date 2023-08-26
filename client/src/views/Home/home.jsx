@@ -2,12 +2,12 @@ import '../Home/home.css';
 import Dogs from '../../components/Dogs/dogs'
 
 
-const Home=({dogsToShow})=>{
+const Home=()=>{
 
     
         return (
             <div className='centered-container'>
-                <Dogs dogsToShow={dogsToShow}/>
+                <Dogs />
             </div>
         )
     }

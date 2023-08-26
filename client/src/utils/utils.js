@@ -7,5 +7,5 @@ export const filterObjByProperty = (array, property, searchTerm) => {
   };
 
   export const handleChange = (set) => {
-    return (event) => set(event.target.value);
+    return (event) => set(event.target.value.trim());
   };
