@@ -66,7 +66,6 @@ const getNameCtrl=async(name)=>{
     
     const finalDog= [...apiDogFinal,...dbDog]
 
-    if(finalDog.length===0) return ("No se encontro perro con esa raza");
     return finalDog;
     
 };
