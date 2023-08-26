@@ -1,9 +1,14 @@
+import { filterByTemperaments } from '../../redux/actions';
 
-const ByTemperaments = ({tempList}) => {
+const ByTemperaments = ({tempList,dispatch}) => {
 
+  const handleSelectChange = event => {
+    const targetValue = event.target.value;
+    dispatch(filterByTemperaments(targetValue)); 
+  };
   return(
     <div>
-      <select id="filterByTemperaments" >
+      <select onChange={handleSelectChange} >
         <option value="defaultValue">
           by Temperaments
         </option>

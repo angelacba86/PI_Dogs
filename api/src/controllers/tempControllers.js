@@ -18,7 +18,7 @@ const getTempCtrl= async ()=>{
 
     let dogTemper=[]
 
-    await apiTemps.forEach((temp)=>{
+    await apiTemps?.forEach((temp)=>{
         if (temp.temperament) {
             dogTemper.push(
                 temp.temperament.split(', ')

@@ -7,7 +7,7 @@ import Landing from './views/Landing/landing';
 import Detail from './views/Detail/detail';
 import Form from './views/Form/form';
 import NavBar from './components/NavBar/navbar';
-import { allDogs,getByName, getTemperaments } from '../src/redux/actions'
+import {  allDogs,getByName, getTemperaments } from '../src/redux/actions'
 import {handleChange} from '../src/utils/utils'
 
 
@@ -30,22 +30,24 @@ function App() {
     setName('')
   }
   const [name,setName]=useState('');
-  // const handleChange= (event)=>{setName(event.target.value)}
   const handleName=handleChange(setName)
 
-//----TemperamentFilter-----//
+//----Filters-----//
 const tempList=useSelector(state=>state.tempList)
 useEffect(()=>{
   dispatch(getTemperaments())
-})
+},[dispatch]);
+const filteredDogs = useSelector(state => state.filteredDogs);
 
+const dogsToShow = filteredDogs.length > 0 ? filteredDogs: getAllDogs;
 
   return (
     <div className="App">
-       {pathname!=='/' && <NavBar handleChange={handleName} handleSubmit={handleSubmit} name={name} tempList={tempList} />}
+       {pathname!=='/' && <NavBar handleName={handleName} handleSubmit={handleSubmit} name={name} tempList={tempList} dispatch={dispatch}
+ />}
       <Routes>
         <Route path='/' element={<Landing/>}/>
-        <Route exact path='/home' element={<Home getAllDogs={getAllDogs}/>}/>
+        <Route exact path='/home' element={<Home dogsToShow={dogsToShow} filteredDogs={filteredDogs}/>}/>
         <Route path='home/:id' element={<Detail  />}/>
         <Route path='/form' element={<Form/>}/>
       </Routes>

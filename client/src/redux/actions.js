@@ -56,19 +56,9 @@ export const getTemperaments=()=>{
           });
     })
 }
-
-export const FilterByTemperaments=(tempSelect)=>{
-    const endpoint='http://localhost:3001/dogs'
-        axios.get(endpoint).then(({data})=>{
-            const tempFilter=()=>{
-                return data.filter(obj => obj.temperament
-                    .split(', ').some(temp=> temp.toLowerCase().include(tempSelect.toLowerCase())))
-            }
-          return(dispatch=>{
-            return dispatch({
-                type:FILTER_BY_TEMPERAMENTS,
-                payload:tempFilter()
+export const filterByTemperaments=(targetValue)=>{
+        return ({
+            type:FILTER_BY_TEMPERAMENTS,
+            payload:targetValue
             })
-        })    })
-
-}
+ }

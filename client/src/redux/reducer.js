@@ -1,6 +1,18 @@
-import { ALL_DOGS, FILTER_BY_TEMPERAMENTS, GET_BY_NAME, GET_DETAIL, GET_TEMPERAMENTS, PAGE_CLEANER } from "./action-type";
+import { 
+     ALL_DOGS,
+     FILTER_BY_TEMPERAMENTS,
+     GET_BY_NAME,
+     GET_DETAIL,
+     GET_TEMPERAMENTS,
+     PAGE_CLEANER } 
+     from "./action-type";
 
-let initialState= {getAllDogs:[], getAllDogsCopy:[], detailDog:[], tempList:[], tempFilter:[]};
+let initialState= { 
+    getAllDogs:[],
+    getAllDogsCopy:[],
+    filteredDogs:[],
+    tempList:[]
+};
 
 const reducer= (state=initialState, action)=>{
     switch(action.type){
@@ -15,7 +27,11 @@ const reducer= (state=initialState, action)=>{
         case GET_TEMPERAMENTS:
             return{...state,tempList:action.payload}
         case FILTER_BY_TEMPERAMENTS:
-            return {...state,filter:action.payload}
+            const targetValue = action.payload;
+            const filteredDogs = state.getAllDogsCopy.filter(dog =>
+              dog.temperament?.split(', ').some(temp => temp.toLowerCase() === targetValue.toLowerCase())
+              );
+            return { ...state, filteredDogs };
         default: 
            return { ...state}
             };

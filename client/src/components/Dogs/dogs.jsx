@@ -1,9 +1,9 @@
 import '../Dogs/dogs.css';
 import Dog from '../Dog/dog'
 
-const Dogs=({getAllDogs})=>{
+const Dogs=({dogsToShow})=>{
     
-const dogsList=getAllDogs  
+const dogsList=dogsToShow  
     
     return(
         <div className='dogsContainer'>
