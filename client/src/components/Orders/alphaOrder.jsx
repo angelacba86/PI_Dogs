@@ -1,14 +1,25 @@
-const alphaOrder=()=>{
+import { useDispatch } from "react-redux"
+import { orderAz } from "../../redux/actions";
+
+const AlphaOrder=()=>{
+
+const dispatch= useDispatch();
+   const handleSelectChange=event=>{
+      const order=event.target.value
+      dispatch(orderAz(order))
+      
+   }
+
    
  return(
     <div>
-<select id="alphaOrder">
-   <option value="" disabled selected>Sort Z-A</option>
-   <option value="Acending">A to Z</option>
-   <option value="Descending">Z to A</option>
+<select id="alphaOrder" onChange={handleSelectChange}>
+   <option value="" defaultValue >Sort</option>
+   <option value="az">A to Z</option>
+   <option value="za">Z to A</option>
  </select>
 </div>
  )
 }
 
-export default alphaOrder;
+export default AlphaOrder;

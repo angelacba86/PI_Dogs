@@ -18,7 +18,7 @@ const ByTemperaments = () => {
   return(
     <div>
       <select onChange={handleSelectChange}>
-        <option value="defaultValue">
+        <option value='' defaultValue>
           by Temperaments
         </option>
         {tempList?.map(temp => (

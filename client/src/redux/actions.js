@@ -1,4 +1,13 @@
-import { ALL_DOGS, GET_BY_NAME, GET_DETAIL, PAGE_CLEANER, GET_TEMPERAMENTS,FILTER_BY_TEMPERAMENTS } from "./action-type";
+import { ALL_DOGS,
+         GET_BY_NAME,
+         GET_DETAIL,
+         PAGE_CLEANER,
+         GET_TEMPERAMENTS,
+         FILTER_BY_TEMPERAMENTS,
+         FILTER_BY_ORIGIN,
+         AZ_ORDER,
+         WEIGHT_ORDER } from "./action-type";
+
 import axios from 'axios';
 
 export const allDogs = ()=>{
@@ -64,3 +73,21 @@ export const filterByTemperaments=(targetValue)=>{
             payload:targetValue
             })
  }
+ export const filterByOrigin=(opValue)=>{
+    return({
+        type:FILTER_BY_ORIGIN,
+        payload:opValue
+    })
+ }
+ export const orderAz=(order)=>{
+    return({
+        type:AZ_ORDER,
+        payload:order
+    })
+ }
+export const orderWeight=(weigth)=>{
+    return({
+        type:WEIGHT_ORDER,
+        payload:weigth
+    })
+}

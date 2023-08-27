@@ -3,6 +3,9 @@ import {Link} from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import SearchBar from '../SearchBar/searchbar';
 import ByTemperaments from '../Filters/byTemperaments';
+import ByOrigin from '../Filters/byOrigin';
+import AlphaOrder from '../Orders/alphaOrder';
+import WeightOrder from '../Orders/weightOrder';
 
 
 const NavBar=({handleName, handleSubmit,name})=>{
@@ -12,7 +15,13 @@ const NavBar=({handleName, handleSubmit,name})=>{
             <Link to={'/'}><>Landing</></Link>
             <Link to={'/home'}><>Home</></Link>
             <Link to={'/form'}><>Form</></Link>
-            {pathname ==='/home' && <><SearchBar handleName={handleName} handleSubmit={handleSubmit} name={name} /><ByTemperaments  /></>}
+            {pathname ==='/home' && <>
+            <SearchBar handleName={handleName} handleSubmit={handleSubmit} name={name} />
+            <ByTemperaments/>
+            <ByOrigin/>
+            <AlphaOrder/>
+            <WeightOrder/>
+            <button>🗘</button></>}
            
         </div>
     )

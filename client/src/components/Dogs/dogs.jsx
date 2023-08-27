@@ -7,8 +7,11 @@ const Dogs=( )=>{
     const noInfo= useSelector(state=> state.noInfo);
     const getAllDogs= useSelector(state=>state.getAllDogs)
     const filteredDogs = useSelector(state=>state.filteredDogs)
+
+    
     const dogsToShow = filteredDogs.length > 0 ? filteredDogs: getAllDogs
 
+ 
       return (
         
         <div className='dogsContainer'>

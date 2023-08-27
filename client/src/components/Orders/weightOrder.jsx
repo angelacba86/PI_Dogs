@@ -1,12 +1,22 @@
-const weightOrder=()=>{
+import { useDispatch } from "react-redux";
+import { orderWeight } from "../../redux/actions";
+
+const WeightOrder=()=>{
+    const dispatch= useDispatch();
+    const handleSelectChange= event=>{
+        const order= event.target.value
+        dispatch(orderWeight(order))
+        console.log(order)
+    }
+
     return(
         <div>
-<select id="weightOrder">
-   <option value="" disabled selected>Sort by Weight</option>
-   <option value="Acending">Highest</option>
-   <option value="Descending">Lowest</option>
+<select id="weightOrder" onChange={handleSelectChange}>
+   <option value="" defaultValue >Sort by Weight</option>
+   <option value="Ascending">Ascending</option>
+   <option value="Descending">Descending</option>
  </select>
 </div>
     )
 }
-export default weightOrder;
+export default WeightOrder;

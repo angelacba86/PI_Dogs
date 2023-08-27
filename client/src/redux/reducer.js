@@ -1,9 +1,12 @@
 import { 
      ALL_DOGS,
+     FILTER_BY_ORIGIN,
      FILTER_BY_TEMPERAMENTS,
      GET_BY_NAME,
      GET_DETAIL,
      GET_TEMPERAMENTS,
+     AZ_ORDER,
+     WEIGHT_ORDER,
      PAGE_CLEANER } 
      from "./action-type";
 
@@ -20,9 +23,9 @@ const reducer= (state=initialState, action)=>{
         case ALL_DOGS:
             return {...state,getAllDogs:action.payload, getAllDogsCopy:action.payload}
         case GET_BY_NAME:
-            console.log("GET_BY_NAME action received:", action.payload);
             return {...state,
-                getAllDogs: Array.isArray(action.payload) ? action.payload : [],
+                getAllDogs: action.payload ? action.payload : [],
+                filteredDogs: [],
                 noInfo:action.payload.length === 0 ? "No dogs found." : "",
             }
         case GET_DETAIL:
@@ -33,10 +36,100 @@ const reducer= (state=initialState, action)=>{
             return{...state,tempList:action.payload}
         case FILTER_BY_TEMPERAMENTS:
             const targetValue = action.payload;
-            const filteredDogs = state.getAllDogs?.filter(dog =>
+            if(targetValue)
+            {const filteredDogs = state.getAllDogs?.filter(dog =>
               dog.temperament?.split(', ').some(temp => temp.toLowerCase() === targetValue.toLowerCase())
               );
-            return { ...state, filteredDogs };
+            return { ...state,
+                 filteredDogs,
+                 noInfo: filteredDogs.length === 0 ? "No dogs found with this temperament." : "" };}
+            else {
+                return{
+                    ...state,
+                }
+            }
+        case FILTER_BY_ORIGIN:
+            const opValue= action.payload
+            if(opValue==="") return{
+                ...state
+            }
+            else if (opValue === "Original") {
+                const original = state.getAllDogs?.filter(dog => !isNaN(Number(dog.id)));
+                return{
+                    ...state,
+                    filteredDogs:original,
+                    noInfo:original.length===0 ? "No original dogs were found.":""
+                }
+            }else {
+                const created= state.filteredDogs?.filter(dog=> isNaN(Number(dog.id)))
+                return{
+                    ...state,
+                    filteredDogs:created,
+                    noInfo:created.length===0 ? "No created dogs were found.":""
+                }
+            }
+        case AZ_ORDER:
+            const order=action.payload;
+            const orderByName = state.filteredDogs.length > 0 ? state.filteredDogs : state.getAllDogs;
+            if(order==="") return{
+                ...state
+            }
+            else if(order==="az"){
+                const orderAZ= [...orderByName].sort((a,b)=>{
+                    const nameA= a.name.toLowerCase()  
+                    const nameB= b.name.toLowerCase()
+                    return nameA < nameB ? -1 : 1
+                })
+                return{
+                    ...state,
+                    getAllDogs:orderAZ,
+                    filteredDogs:orderAZ
+                }
+            }else {
+                const orderZA= [...orderByName].sort((a,b)=>{
+                    const nameA= a.name.toLowerCase()  
+                    const nameB= b.name.toLowerCase()
+                    return nameA > nameB ? -1 : 1
+                })
+                return{
+                    ...state,
+                    getAllDogs:orderZA,
+                    filteredDogs:orderZA
+                }
+            }
+        case WEIGHT_ORDER:
+            const weigth= action.payload;
+            const orderByWeight= state.filteredDogs.length > 0 ? state.filteredDogs : state.getAllDogs;
+            if(weigth==="")return{
+                ...state
+            }
+            else if(weigth==="Ascending"){
+                const ascendent=[...orderByWeight].sort((a,b)=>{
+                    const weightA= Number(a.weight.split(" - ")[1])
+                    const weightB=Number(b.weight.split(" - ")[1])
+                    return weightA < weightB ? -1 : 1
+                })
+                return{
+                    ...state,
+                    getAllDogs:ascendent,
+                    filteredDogs:ascendent
+
+                }
+            }else{
+                const descendent=[...orderByWeight].sort((a,b)=>{
+                    const weightA= Number(a.weight.split(" - ")[1])
+                    const weightB=Number(b.weight.split(" - ")[1])
+                    return weightA > weightB ? -1 : 1
+                })
+                return{
+                    ...state,
+                    getAllDogs:descendent,
+                    filteredDogs:descendent
+                }
+
+            }
+
+
         default: 
            return { ...state}
             };

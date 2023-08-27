@@ -1,12 +1,22 @@
-const byOrigin=()=>{
+import { useDispatch } from "react-redux";
+import { filterByOrigin } from "../../redux/actions";
+
+const ByOrigin=()=>{
+const dispatch= useDispatch();
+//------handleSelect---///
+  const handleSelectChange= event =>{
+    const opValue= event.target.value;
+    dispatch(filterByOrigin(opValue))
+  }
+  
   return(
     <div>
-<select id="filterByOrigin">
-   <option value="" disabled selected>by Origin</option>
-   <option value="banana">Original</option>
-   <option value="naranja">Created</option>
+<select id="filterByOrigin" onChange={handleSelectChange}>
+   <option value="" defaultValue>by Origin</option>
+   <option value="Original">Original</option>
+   <option value="Created">Created</option>
  </select>
 </div>
   )
 }
-export default byOrigin;
+export default ByOrigin;
