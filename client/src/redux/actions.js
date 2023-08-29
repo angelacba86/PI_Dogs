@@ -6,7 +6,8 @@ import { ALL_DOGS,
          FILTER_BY_TEMPERAMENTS,
          FILTER_BY_ORIGIN,
          AZ_ORDER,
-         WEIGHT_ORDER } from "./action-type";
+         WEIGHT_ORDER,
+         CREATE_DOG } from "./action-type";
 
 import axios from 'axios';
 
@@ -35,15 +36,17 @@ export const getByName = (name) => async dispatch => {
     console.error("An error occurred:", error);
   }
 };
-export const getDetail = (id) => {
-    const endpoint=`http://localhost:3001/dogs/${id}`
-    return (dispatch =>{
-        axios.get(endpoint).then(({data})=>{
-            return dispatch ({
+export const getDetail =  (id) => async dispatch=>{
+    try {
+        const endpoint = await axios.get(`http://localhost:3001/dogs/${id}`);
+        const response = endpoint.data;
+            dispatch({
                 type:GET_DETAIL,
-                payload:data})
-        })
-    })
+                payload:response
+            });
+    } catch (error) {
+        console.error("An error occurred:", error);
+      }
 }
 
 export const pageCleaner=()=>{
@@ -90,4 +93,12 @@ export const orderWeight=(weigth)=>{
         type:WEIGHT_ORDER,
         payload:weigth
     })
+}
+export const createDog= async ()  => {
+    try {
+        await axios.post('http://localhost:3001/dogs/')
+
+    } catch (error) {
+        console.error("An error occurred:", error);
+    }
 }

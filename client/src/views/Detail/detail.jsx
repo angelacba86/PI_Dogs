@@ -17,16 +17,16 @@ const Detail=()=>{
     },[dispatch,id]);
 
     const dogDetails=detailDog&&detailDog[0];
-    
-      return (
-        <div>
-            <img src={dogDetails&&dogDetails.image} alt={dogDetails&&dogDetails.name}/>
-            <h3>{dogDetails&&dogDetails.name}</h3>
-            <p>Temperament: {dogDetails&&dogDetails.temperament}</p>
-            <p>Height: {dogDetails&&dogDetails.height}</p>
-            <p>Weight: {dogDetails&&dogDetails.weight}</p>
-            <p>Span life: {dogDetails&&dogDetails.span_life}</p>
 
+      return (
+   
+        <div>
+          {dogDetails ? <><img src={dogDetails && dogDetails.image} alt={dogDetails && dogDetails.name} />
+          <h3>{dogDetails && dogDetails.name}</h3>
+          <p>Temperaments: {dogDetails && dogDetails.temperaments}</p>
+          <p>Height: {dogDetails && dogDetails.minHeight}-{dogDetails && dogDetails.maxHeight}</p><p>Weight: {dogDetails && dogDetails.minWeight}- {dogDetails && dogDetails.maxWeight}</p>
+          <p>Life Span: {dogDetails && dogDetails.minLifeSpan}-{dogDetails && dogDetails.maxLifeSpan} years</p>
+          <p>Origin:{dogDetails&& dogDetails.origin}</p></> : <p>Loading...</p>}
         </div>
       )
 }

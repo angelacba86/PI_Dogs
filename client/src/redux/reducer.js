@@ -38,7 +38,7 @@ const reducer= (state=initialState, action)=>{
             const targetValue = action.payload;
             if(targetValue)
             {const filteredDogs = state.getAllDogs?.filter(dog =>
-              dog.temperament?.split(', ').some(temp => temp.toLowerCase() === targetValue.toLowerCase())
+              dog.temperaments?.split(', ').some(temp => temp.toLowerCase() === targetValue.toLowerCase())
               );
             return { ...state,
                  filteredDogs,
@@ -105,8 +105,8 @@ const reducer= (state=initialState, action)=>{
             }
             else if(weigth==="Ascending"){
                 const ascendent=[...orderByWeight].sort((a,b)=>{
-                    const weightA= Number(a.weight.split(" - ")[1])
-                    const weightB=Number(b.weight.split(" - ")[1])
+                    const weightA= Number(a.maxWeight)
+                    const weightB=Number(b.maxWeight)
                     return weightA < weightB ? -1 : 1
                 })
                 return{
@@ -117,8 +117,8 @@ const reducer= (state=initialState, action)=>{
                 }
             }else{
                 const descendent=[...orderByWeight].sort((a,b)=>{
-                    const weightA= Number(a.weight.split(" - ")[1])
-                    const weightB=Number(b.weight.split(" - ")[1])
+                    const weightA= Number(a.maxWeight)
+                    const weightB=Number(b.maxWeight)
                     return weightA > weightB ? -1 : 1
                 })
                 return{

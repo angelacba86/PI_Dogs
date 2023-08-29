@@ -6,23 +6,30 @@ import ByTemperaments from '../Filters/byTemperaments';
 import ByOrigin from '../Filters/byOrigin';
 import AlphaOrder from '../Orders/alphaOrder';
 import WeightOrder from '../Orders/weightOrder';
+import { useDispatch } from 'react-redux';
+import { allDogs } from '../../redux/actions';
 
 
-const NavBar=({handleName, handleSubmit,name})=>{
+const NavBar=()=>{
     const { pathname } = useLocation();
+    const dispatch= useDispatch();
+
     return(
         <div className='navBarContainer'>
+            <div className='navBarMenus'>
             <Link to={'/'}><>Landing</></Link>
             <Link to={'/home'}><>Home</></Link>
             <Link to={'/form'}><>Form</></Link>
+            </div>
+            <div className='navBarMenus'>
             {pathname ==='/home' && <>
-            <SearchBar handleName={handleName} handleSubmit={handleSubmit} name={name} />
+            <SearchBar />
             <ByTemperaments/>
             <ByOrigin/>
             <AlphaOrder/>
             <WeightOrder/>
-            <button>🗘</button></>}
-           
+            <button onClick={()=>{dispatch(allDogs())}} >🗘</button></>}
+            </div>
         </div>
     )
 }
