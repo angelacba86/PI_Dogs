@@ -20,9 +20,10 @@ const getDetailHandler=async(req,res)=>{
     }};
     
 const postNewDogHandler=async(req,res)=>{
-    const {image,name,height,weight,life_span,temperament}=req.body;
+    const {name, image, minHeight, maxHeight, minWeight, maxWeight, minLifeSpan, maxLifeSpan,temperament}=req.body;
+    console.log("donde estas temp"+temperament); // 
     try {
-        const response= await createDogCtrl(image,name,height,weight,life_span,temperament)
+        const response= await createDogCtrl(name, image, minHeight, maxHeight, minWeight, maxWeight, minLifeSpan, maxLifeSpan,temperament)
         res.status(200).json(response)
     } catch (error) {
         res.status(400).json({error:error.message})

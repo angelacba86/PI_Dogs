@@ -1,6 +1,5 @@
 import { ALL_DOGS,
          GET_BY_NAME,
-         GET_DETAIL,
          PAGE_CLEANER,
          GET_TEMPERAMENTS,
          FILTER_BY_TEMPERAMENTS,
@@ -36,19 +35,6 @@ export const getByName = (name) => async dispatch => {
     console.error("An error occurred:", error);
   }
 };
-export const getDetail =  (id) => async dispatch=>{
-    try {
-        const endpoint = await axios.get(`http://localhost:3001/dogs/${id}`);
-        const response = endpoint.data;
-            dispatch({
-                type:GET_DETAIL,
-                payload:response
-            });
-    } catch (error) {
-        console.error("An error occurred:", error);
-      }
-}
-
 export const pageCleaner=()=>{
     return ({
         type:PAGE_CLEANER,

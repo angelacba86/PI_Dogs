@@ -3,7 +3,6 @@ import {
      FILTER_BY_ORIGIN,
      FILTER_BY_TEMPERAMENTS,
      GET_BY_NAME,
-     GET_DETAIL,
      GET_TEMPERAMENTS,
      AZ_ORDER,
      WEIGHT_ORDER,
@@ -28,8 +27,6 @@ const reducer= (state=initialState, action)=>{
                 filteredDogs: [],
                 noInfo:action.payload.length === 0 ? "No dogs found." : "",
             }
-        case GET_DETAIL:
-            return {...state,detailDog:action.payload}
         case PAGE_CLEANER:
             return {...state,detailDog:action.payload}
         case GET_TEMPERAMENTS:

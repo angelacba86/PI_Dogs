@@ -2,7 +2,7 @@ import '../Dog/dog.css';
 import { NavLink } from 'react-router-dom';
 
 const Dog=({id,image,name,temperaments,minWeight,maxWeight})=>{
-
+console.log(temperaments)
     return(
         <div className='dogCard'key={id} >
             <NavLink to={`${id}`}>
