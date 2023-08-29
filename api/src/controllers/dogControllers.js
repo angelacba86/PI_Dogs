@@ -21,15 +21,18 @@ const getDogsCtrl= async()=>{
             id:dog.id,
             name:dog.name,
             image:dog.image?.url,
-            weight:dog.weight?.metric,
-            height:dog.height?.metric,
-            life_span:dog.life_span,
-            temperament:dog.temperament
+            minHeight: parseInt(dog.height.metric.split("-")[0]),
+            maxHeight: parseInt(dog.height.metric.split("-")[1]),
+            minWeight: parseInt(dog.weight.metric.split("-")[0]),
+            maxWeight: parseInt(dog.weight.metric.split("-")[1]),
+            minLifeSpan: parseInt(dog.life_span.split("-")[0]),
+            maxLifeSpan: parseInt(dog.life_span.split("-")[1]),
+            temperaments: dog.temperament,
+            origin: "API"
         }); 
     });
 
     const createdDogs= await Dog.findAll({
-        attributes:['id','name','image','weight','height','life_span'],
         includes:{
             model:Temperament,
             attributes:['name']
@@ -49,14 +52,17 @@ const getNameCtrl=async(name)=>{
             id:dog.id,
             name:dog.name,
             image:`${URL_IMAGE}${dog.reference_image_id}.jpg`,
-            weight:dog.weight?.metric,
-            height:dog.height?.metric,
-            life_span:dog.life_span,
-            temperament:dog.temperament})
+            minHeight: parseInt(dog.height.metric.split("-")[0]),
+            maxHeight: parseInt(dog.height.metric.split("-")[1]),
+            minWeight: parseInt(dog.weight.metric.split("-")[0]),
+            maxWeight: parseInt(dog.weight.metric.split("-")[1]),
+            minLifeSpan: parseInt(dog.life_span.split("-")[0]),
+            maxLifeSpan: parseInt(dog.life_span.split("-")[1]),
+            temperaments: dog.temperament,
+            origin: "API"})
         })
    
     const dbDog= await Dog.findAll({
-        attributes:['id','name','image','weight','height','life_span'],
         includes:{
             model:Temperament,
             attributes:['name']},
@@ -70,30 +76,47 @@ const getNameCtrl=async(name)=>{
     
 };
 
-const createDogCtrl = async(image,name,height,weight,life_span,temperamentName)=>{
+const createDogCtrl = async(name, image, minHeight, maxHeight, minWeight, maxWeight, minLifeSpan, maxLifeSpan,temperamentName)=>{
 console.log(temperamentName)
-    let temperament = await Temperament.findOne({
-        where:{ name: temperamentName}
-    });
-    if(!temperament) temperament= await Temperament.create({name:temperamentName});
-     
-    let newDog= await Dog.findOne({
-        where:{ name:name}
-    })
-    if(!newDog) { 
-        newDog = await Dog.create({image,name,height,weight,life_span})
-        await newDog.addTemperament(temperament)
-        return {
-            id: newDog.id,
-            image: newDog.image,
-            name: newDog.name,
-            height: newDog.height,
-            weight: newDog.weight,
-            life_span: `${newDog.life_span} years`,
-            temperament: temperament.name 
-        };
-    } else { return "Este perro ya existe"};
-     
+try{
+const allDogs = await getDogsCtrl();
+const dogName = allDogs.find(dog => dog.name.toLowerCase() === name.toLowerCase().trim());
+if (dogName) {
+    throw new Error(`Dog ${name} already exists in the API or in the Database`);
+}
+else if (!name || !minHeight || !maxHeight || !minWeight || !maxWeight || !minLifeSpan || !maxLifeSpan ||!temperamentName) {
+    throw new Error("You must fill in all the required information");
+}
+else if (minHeight <= 0 || maxHeight <= 0 || minWeight <= 0 || maxWeight <= 0 || minLifeSpan <= 0 || maxLifeSpan <= 0) {
+    throw new Error("The height, weight ow life span value cannot be negative");
+}
+else if (minHeight >= maxHeight) {
+    throw new Error("The minimum height is greater than or equal to the maximum height, please validate data");
+}
+else if (minWeight >= maxWeight) {
+    throw new Error("The minimum weight is greater than or equal to the maximum weight, please validate data");
+}
+else if (minLifeSpan >= maxLifeSpan) {
+    throw new Error("The minimum life span is greater than or equal to the maximum weight, please validate data");
+}
+const newDog = await Dog.create({
+    name,
+    image,
+    minHeight,
+    maxHeight,
+    minWeight,
+    maxWeight,
+    minLifeSpan,
+    maxLifeSpan,
+    origin: "DataBase"
+})
+await newDog.addTemperament(temperamentName)
+;
+return newDog;
+} catch (error) {
+    throw new Error(error);
+}
+         
 };
 
 const getDetailCtrl=async(idRaza)=>{
@@ -111,17 +134,20 @@ const getDetailCtrl=async(idRaza)=>{
                 getId.push({
                 name:dog.name,
                 image:`${URL_IMAGE}${dog.reference_image_id}.jpg`,
-                weight:dog.weight?.metric,
-                height:dog.height?.metric,
-                life_span:dog.life_span,
-                temperament:dog.temperament})
+                minHeight: parseInt(dog.height.metric.split("-")[0]),
+                maxHeight: parseInt(dog.height.metric.split("-")[1]),
+                minWeight: parseInt(dog.weight.metric.split("-")[0]),
+                maxWeight: parseInt(dog.weight.metric.split("-")[1]),
+                minLifeSpan: parseInt(dog.life_span.split("-")[0]),
+                maxLifeSpan: parseInt(dog.life_span.split("-")[1]),
+                temperaments: dog.temperament,
+                origin: "API"})
             }
         });
     }
     else {
   
         getId= await Dog.findOne({
-            attributes:['name','image','weight','height','life_span'],
             includes:{
                 model:Temperament,
                 attributes:['name']},
