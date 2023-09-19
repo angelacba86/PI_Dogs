@@ -1,12 +1,10 @@
 .dogsContainer{
     display:flex;
     justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    /* flex-direction:row; */
+    /* align-items: center; */
     flex-wrap: wrap;
     gap:1em;
     margin: 2%;
     padding: 1% 2%;
-    background-color: azure;
+
 }

@@ -1,11 +1,11 @@
 import { useDispatch } from "react-redux";
-import { orderWeight } from "../../redux/actions";
+import { orderBy } from "../../redux/actions";
 
 const WeightOrder=()=>{
     const dispatch= useDispatch();
     const handleSelectChange= event=>{
         const order= event.target.value
-        dispatch(orderWeight(order))
+        dispatch(orderBy(order))
         console.log(order)
     }
 

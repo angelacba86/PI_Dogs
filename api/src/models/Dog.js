@@ -42,7 +42,6 @@ module.exports = (sequelize) => {
     },
     minLifeSpan: {
       type: DataTypes.INTEGER,
-      validate: { min: 1, max: 20 },
       allowNull: false,
     },
     maxLifeSpan: {

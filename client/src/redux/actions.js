@@ -2,24 +2,26 @@ import { ALL_DOGS,
          GET_BY_NAME,
          PAGE_CLEANER,
          GET_TEMPERAMENTS,
-         FILTER_BY_TEMPERAMENTS,
-         FILTER_BY_ORIGIN,
-         AZ_ORDER,
-         WEIGHT_ORDER,
-         CREATE_DOG } from "./action-type";
+         FILTERS_BY_TEMPERAMENTS,
+         FILTERS_BY_ORIGIN,
+         ORDER_BY,
+         CLEAR_SEARCH,
+        } from "./action-type";
 
 import axios from 'axios';
 
-export const allDogs = ()=>{
-    const endpoint='http://localhost:3001/dogs'
-    return (dispatch)=>{
-        axios.get(endpoint).then(({data})=>{
-            return dispatch({
-                type:ALL_DOGS,
-                payload:data
-            });
-        });
-    };
+export const allDogs = ()=> async dispatch=>{
+    try {
+            const endpoint = await axios.get(`http://localhost:3001/dogs`);
+            const response= endpoint.data;
+                 dispatch({
+                    type:ALL_DOGS,
+                    payload:response
+                });
+    } catch (error) {
+        throw new Error("An error occurred: " , error.message);
+      }
+
 };
 
 export const getByName = (name) => async dispatch => {
@@ -28,63 +30,54 @@ export const getByName = (name) => async dispatch => {
     const response = endpoint.data;
         dispatch({
             type: GET_BY_NAME,
-            payload: response
+            payload: response,
+            searchingName:name
           });
 
   } catch (error) {
-    console.error("An error occurred:", error);
+    throw new Error("An error occurred:", error);
   }
 };
 export const pageCleaner=()=>{
     return ({
         type:PAGE_CLEANER,
-        payload:null}
-    )
-}
-
-export const getTemperaments=()=>{
-    const endpoint=`http://localhost:3001/temperament`
-    return (dispatch=>{
-        axios.get(endpoint).then(({data})=>{
-            return dispatch({
-                type:GET_TEMPERAMENTS,
-                payload:data
-            })
-        })
-        .catch(error => {
-            console.error("Axios error:", error);
-          });
+        payload:""
     })
 }
-export const filterByTemperaments=(targetValue)=>{
-        return ({
-            type:FILTER_BY_TEMPERAMENTS,
-            payload:targetValue
-            })
- }
- export const filterByOrigin=(opValue)=>{
+export const clearSearch=()=>{
     return({
-        type:FILTER_BY_ORIGIN,
-        payload:opValue
-    })
- }
- export const orderAz=(order)=>{
-    return({
-        type:AZ_ORDER,
-        payload:order
-    })
- }
-export const orderWeight=(weigth)=>{
-    return({
-        type:WEIGHT_ORDER,
-        payload:weigth
+        type:CLEAR_SEARCH,
     })
 }
-export const createDog= async ()  => {
+export const getTemperaments= () => async dispatch => {
     try {
-        await axios.post('http://localhost:3001/dogs/')
+        const endpoint=await axios.get(`http://localhost:3001/temperament`)
+        const response= endpoint.data;
+        dispatch({
+            type:GET_TEMPERAMENTS,
+            payload:response,
 
+        })     
     } catch (error) {
-        console.error("An error occurred:", error);
-    }
+        throw new Error("An error occurred: " , error.message);
+    };
+};
+export const filtersByTemperaments=(filterName)=>{
+        return ({
+            type:FILTERS_BY_TEMPERAMENTS,
+            payload:filterName
+            })
+ }
+ export const filtersByOrigin=(filterName)=>{
+    return ({
+        type:FILTERS_BY_ORIGIN,
+        payload:filterName
+        })
 }
+ export const orderBy=(orderName)=>{
+    return({
+        type:ORDER_BY,
+        payload:orderName
+    })
+ }
+

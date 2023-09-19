@@ -1,18 +1,40 @@
 .navBarContainer{
-    background-color: aquamarine;
+    background: whitesmoke;
     display: flex;
-    flex-direction:column;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     overflow: auto;
     /* max-height: 30px; */
 }
 .navBarMenus{
     display: flex;
-    justify-content: space-around;
+    /* justify-content: space-around; */
+    align-items: center;
+    gap:1em;
+    margin: 0 2%;
+    padding: 2%;
+}
+.navBarFiltros{
+    display: flex;
     align-items: center;
     gap:1em;
     margin: 0 2%;
     padding: 2%;
 }
 
+.imagen-logo{
+    max-width: 160px;
+    max-height: auto;
+}
+.menu a{
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #057ae0;
+    border: 1px solid #057ae0;
+    transition: border-color 0.3s ease-in-out;
+}
+.menu a:hover {
+    border: 2px solid #057ae0;
+    text-decoration: none;
+}

@@ -1,28 +1,35 @@
-import { getTemperaments, filterByTemperaments } from '../../redux/actions';
+import '../NavBar/navbar.css'
+import { getTemperaments, filtersByTemperaments } from '../../redux/actions';
 import { useSelector,useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect} from 'react';
 
-const ByTemperaments = () => {
+const ByTemperaments = ({setCurrentPage}) => {
 
   const dispatch = useDispatch();
+
   //----FiltersList-----//
   useEffect(()=>{
     dispatch(getTemperaments())
   },[dispatch]);
   const tempList=useSelector(state=>state.tempList)
-  //----HandleSelect-----//
+  const getAllDogs= useSelector(state=>state.getAllDogs)
+  const tempSelectedDogs= new Set(getAllDogs.flatMap(select => select.temperament?.split(',').map(temp => temp.trim().toLowerCase())))
+  const listToShow= tempList?.filter( temp=> tempSelectedDogs.has(temp.name.toLowerCase()))
+  
+  //----HandleSelect-----/
   const handleSelectChange = event => {
-    const targetValue = event.target.value;
-    dispatch(filterByTemperaments(targetValue)); 
+    const tempValue = event.target.value;
+    dispatch(filtersByTemperaments(tempValue)); 
+    setCurrentPage(1)
   };
   return(
-    <div>
+    <div className='select-contenedor'>
       <select onChange={handleSelectChange}>
         <option value='' defaultValue>
-          by Temperaments
+          All Temperaments
         </option>
-        {tempList?.map(temp => (
-          <option key={temp.id} value={temp.name}>
+        {listToShow?.map(temp => (
+          <option key={temp.id} value={temp.name} className='select-estilizado'>
             {temp.name}
           </option>
         ))}

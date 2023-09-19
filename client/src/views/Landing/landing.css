@@ -1,0 +1,50 @@
+
+.contenedor-principal{
+    display: flex;
+    background-image: url("D:\Henry\08.PI DOGS\PI_Dogs\descarga.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment:fixed;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100vh;
+    padding-right: 20%;
+
+  }
+  .contenedor{
+    max-height:800px;
+
+  }
+.css-button {
+    min-width: 130px;
+    height: 40px;
+    color: #fff;
+    padding: 5px 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    outline: none;
+    border-radius: 20px;
+    border: 2px solid #2c0b8e;
+    background: #2c0b8e;
+  }
+  
+  .css-button:hover {
+    background: whitesmoke;
+    color: #2c0b8e
+  }
+
+  h2{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font: bolder;
+    color: #2c0b8e
+
+  }
+
+  p{
+    color: #2c0b8e;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: lighter;
+  }

@@ -1,16 +1,13 @@
 import { useDispatch } from "react-redux"
-import { orderAz } from "../../redux/actions";
+import { orderBy } from "../../redux/actions";
 
 const AlphaOrder=()=>{
 
 const dispatch= useDispatch();
    const handleSelectChange=event=>{
       const order=event.target.value
-      dispatch(orderAz(order))
-      
+      dispatch(orderBy(order))
    }
-
-   
  return(
     <div>
 <select id="alphaOrder" onChange={handleSelectChange}>

@@ -10,18 +10,18 @@ const getDogHandler=async(req,res)=>{
         res.status(400).json({error:error.message})
     }};
 
-const getDetailHandler=async(req,res)=>{
-    const {idRaza} = req.params;
-    try {
-        const response= await getDetailCtrl(idRaza);
-        res.status(200).json(response)
-    } catch (error) {
-        res.status(400).json({error:error.message});
-    }};
+    const getDetailHandler=async(req,res)=>{
+        const { id } = req.params;
+        try {
+            const response = await getDetailCtrl(id);
+            res.status(200).json(response);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
+    };
     
 const postNewDogHandler=async(req,res)=>{
     const {name, image, minHeight, maxHeight, minWeight, maxWeight, minLifeSpan, maxLifeSpan,temperament}=req.body;
-    console.log("donde estas temp"+temperament); // 
     try {
         const response= await createDogCtrl(name, image, minHeight, maxHeight, minWeight, maxWeight, minLifeSpan, maxLifeSpan,temperament)
         res.status(200).json(response)

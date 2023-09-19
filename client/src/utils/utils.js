@@ -65,4 +65,14 @@ export const handleChange = (set) => {
 
     return errors;
   };
+  export const tempErrors = (selectedTemps, value) => {
+    const errors = {};
 
+    if (selectedTemps.includes(value)) {
+      errors.temperament = "This temperament has already been selected!";
+    } else if (selectedTemps.length > 4) {
+      errors.temperament = "Only can choose up to 5 temperaments";
+    }
+
+    return errors;
+  };

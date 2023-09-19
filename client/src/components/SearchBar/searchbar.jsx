@@ -1,23 +1,28 @@
 import '../SearchBar/searchbar.css';
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { getByName } from '../../redux/actions'; 
-import { handleChange } from '../../utils/utils'
+import { clearSearch, getByName,pageCleaner } from '../../redux/actions'; 
+import { handleChange } from '../../utils/utils';
 
-const SearchBar=()=>{
+
+
+const SearchBar=({name,setName,setCurrentPage})=>{
     //---SearchBar:----//
     const dispatch = useDispatch();
-    const [name,setName]=useState('');
     const handleName=handleChange(setName)
     const handleSubmit=()=>{ 
         dispatch(getByName(name));
-        setName('')
       }
+     const handleCleanSearch= ()=>{
+        dispatch(clearSearch())
+        dispatch(pageCleaner())
+        setName("")
+        setCurrentPage(1)
+     } 
 
     return(
         <div className='searchContainer'>
-            <input type='search' value={name} onChange={handleName} placeholder='Search Here'></input>
-            <button onClick={()=>handleSubmit(name)}>Search</button>
+            <input type='search' value={name} onChange={handleName}  placeholder='Search Here'className='minimal-input'></input><button onClick={()=>handleCleanSearch()}>x</button>
+            <button onClick={()=>handleSubmit(name)} className='search-button' >Search</button>
         </div>
     )
 }

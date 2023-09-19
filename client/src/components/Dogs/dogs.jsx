@@ -5,9 +5,11 @@ import { useSelector } from 'react-redux/es/hooks/useSelector';
 const Dogs=( {currentDog})=>{
 
     const noInfo= useSelector(state=> state.noInfo);
+    const results= useSelector(state=>state.results)
   
       return (
-        
+        <div>
+          <div>{results?<p>{results}</p>:""}</div>
         <div className='dogsContainer'>
          {noInfo ? <p>{noInfo}</p>: (currentDog ? currentDog?.map(dog => (
             <Dog
@@ -15,12 +17,13 @@ const Dogs=( {currentDog})=>{
               id={dog.id}
               image={dog.image}
               name={dog.name}
-              temperaments={dog.temperaments}
+              temperament={dog.temperament}
               minWeight={dog.minWeight}
               maxWeight={dog.maxWeight}
             />
           )):<p>Loading</p>)
           }
+        </div>
         </div>
       );
 }

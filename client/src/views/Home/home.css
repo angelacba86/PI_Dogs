@@ -1,7 +1,14 @@
+body{
+   margin:0;
+   padding: 0;
+}
    .centered-container {
     width: 100vw; 
+    height: auto;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centra horizontalmente */
+    justify-content: center; 
+    background: rgb(174,252,250);
+    background: linear-gradient(90deg, rgba(174,252,250,1) 0%, rgba(174,203,251,1) 50%, rgba(137,149,252,1) 100%);
 
    }

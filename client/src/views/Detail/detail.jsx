@@ -18,6 +18,7 @@ const Detail = () => {
     }
     fetchDogDetails();
   }, [id]);
+  console.log(dogDetails)
 
   return (
     <div>
@@ -25,7 +26,7 @@ const Detail = () => {
         <>
           <img src={dogDetails.image} alt={dogDetails.name} />
           <h3>{dogDetails.name}</h3>
-          <p>Temperaments: {dogDetails.temperaments}</p>
+          <p>Temperament: {dogDetails.temperament}</p>
           <p>
             Height: {dogDetails.minHeight}-{dogDetails.maxHeight}
           </p>
@@ -33,7 +34,7 @@ const Detail = () => {
             Weight: {dogDetails.minWeight}- {dogDetails.maxWeight}
           </p>
           <p>
-            Life Span: {dogDetails.minLifeSpan}-{dogDetails.maxLifeSpan} years
+            Life Span: {dogDetails.minLifeSpan}-{dogDetails.maxLifeSpan}
           </p>
           <p>Origin:{dogDetails.origin}</p>
         </>

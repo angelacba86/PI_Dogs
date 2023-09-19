@@ -6,7 +6,7 @@ const {getDogHandler,getDetailHandler,postNewDogHandler}=require('../handlers/do
 //Routes:
     routerDogs.get('/',getDogHandler);
 
-    routerDogs.get('/:idRaza',getDetailHandler);
+    routerDogs.get('/:id',getDetailHandler);
     
     routerDogs.post('/',postNewDogHandler);
 

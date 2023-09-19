@@ -1,5 +1,5 @@
 import '../Pagination/pagination.css'
-const Pagination=({pageHandler, totalPages}) => {
+const Pagination=({pageHandler, totalPages,currentPage}) => {
     const pageNumbers = [];
   
     for (let i = 1; i <= totalPages; i++) {
@@ -12,7 +12,7 @@ const Pagination=({pageHandler, totalPages}) => {
         <button onClick={() => pageHandler(1)}>First</button>
       )}
       {totalPages > 1 && pageNumbers.map((pageNumber) => (
-        <button key={pageNumber} onClick={() => pageHandler(pageNumber)}>
+        <button key={pageNumber} onClick={() => pageHandler(pageNumber)} disable={currentPage}>
           {pageNumber}
         </button>
       ))}
